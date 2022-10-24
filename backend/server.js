@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import workoutRoutes from './routes/workouts.routes.js';
 
 // Configure port number
 dotenv.config();
@@ -14,11 +15,7 @@ const app = express();
 app.use([morgan('tiny'), express.json()]);
 
 // Test server/database connection
-app.get('/api/workouts', (req, res) => {
-	res.status(200).json({
-		message: 'Data received successfully',
-	});
-});
+app.use('/api', workoutRoutes);
 
 mongoose
 	.connect(process.env.MONGO_URI)
